@@ -483,7 +483,7 @@
 
 
       function test() {
-        const fetchRes = fetch("https://healthy-easy.vercel.app/api/blog/posts/all?page=1");
+        const fetchRes = fetch("https://database-production-cb9e.up.railway.app/api/blog/posts/all?page=1");
         fetchRes
           .then((res) => res.json())
           .then((d) => {
@@ -520,7 +520,7 @@
 
       function nextpage(p){
         var c = 0;
-        var resAlgo = "https://healthy-easy.vercel.app/api/blog/posts/all?page=" +p;
+        var resAlgo = "https://database-production-cb9e.up.railway.app/api/blog/posts/all?page=" +p;
         const fetchRes = fetch(resAlgo);
         fetchRes
           .then((res) => res.json())
@@ -567,7 +567,7 @@
     function singleblog(ss){
         // alert("Done");
         localStorage.setItem('ids', ss);
-        location.replace('http://localhost:5500/blog-single.html');
+        location.replace('https://database-production-cb9e.up.railway.app/blog-single.html');
       }
 
       let more = document.querySelectorAll('.more');
