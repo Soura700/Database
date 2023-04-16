@@ -40,18 +40,16 @@ router.post("/login",async(req,res)=>{
       const password = req.body.password
       const user = await Users.findOne({email:email});
       if(user){
-        console.log("Done");
         const validatePassword = await bcrypt.compare(password,user.password);
         if(validatePassword){
           if(user.isAdmin == 1){
             console.log(user._id)
             req.session.user_id = user._id;
-            console.log( req.session.user_id );
-            res.status(200).redirect("/admin");
+            if(req.session.user_id){
+              res.status(200).redirect("https://database-production-cb9e.up.railway.app/admin.html");
+            }
             console.log("Admin login done");
           }else{
-            // res.status(201).json({msg:"Patient login done"});
-            // req.session.user_id = user._id;
             res.status(200).json({msg:user.type+ +" "+ "login successfull"});
           }
         }else{
