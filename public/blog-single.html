@@ -456,7 +456,7 @@
 	<script>
 		function test() {
 		const greetingValue = localStorage.getItem('ids');
-		  const fetchRes = fetch("http://localhost:5500/api/blog/post/blog-single/" + greetingValue);
+		  const fetchRes = fetch("https://database-production-cb9e.up.railway.app/api/blog/post/blog-single/" + greetingValue);
 		  fetchRes
 			.then((res) => res.json())
 			.then((d) => {
@@ -475,14 +475,14 @@
 			});
 		}
 		function deleteBlog(ss){
-			// const fetchRes = fetch("http://localhost:5500/api/user/auth/user?username="+ name)
+			// const fetchRes = fetch("https://database-production-cb9e.up.railway.app/api/user/auth/user?username="+ name)
 			const fetchRes = fetch("http://localhost:5500/api/user/auth/getsession");
 			fetchRes.then((res)=>res.json())
 			.then((d)=>{
 				const cvb = JSON.stringify(d);
 				const res  = JSON.parse(cvb)
 				
-				fetch("http://localhost:5500/api/blog/delete/"+ss,{
+				fetch("https://database-production-cb9e.up.railway.app/api/blog/delete/"+ss,{
 					method:"DELETE",
 					headers: {
     					'Content-Type': 'application/json'
@@ -493,7 +493,7 @@
 			  
 			})
 			.catch((error) => {
-			  location.replace('http://localhost:5500/403.html');
+			  location.replace('https://database-production-cb9e.up.railway.app/403.html');
 			});
 		}
 	</script>
