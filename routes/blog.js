@@ -4,11 +4,11 @@ const Post = require("../models/post");
 const authenticate = require("../middlewire/authenticate.js");
 
 // create post
-router.post("/post/create",authenticate.isAuthenticated, async (req, res) => {
+router.post("/post/create", async (req, res) => {
     const newPost = new Post(req.body);
     try {
       const savepost = await newPost.save();
-      res.status(200).redirect("/");
+      res.status(200).redirect("/blog-sidebar");
     } catch (error) {
       res.status(500).json(error);
     }
