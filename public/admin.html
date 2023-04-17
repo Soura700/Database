@@ -175,7 +175,7 @@
           var update = false;
           var count = 0;
             function test() {
-              const fetchRes = fetch("https://database-production-cb9e.up.railway.app/api/appoitment/all");
+              const fetchRes = fetch("http://localhost:5500/api/appoitment/all");
               fetchRes
                 .then((res) => res.json())
                 .then((d) => {
@@ -202,13 +202,14 @@
             }
             
             function getData(ss){
-                const fetchRes = fetch("https://database-production-cb9e.up.railway.app/api/appoitment/app/" + ss);
+                const fetchRes = fetch("http://localhost:5500/api/appoitment/app/" + ss);
                 fetchRes.then((res)=>res.json())
                 .then((d)=>{
                 const result = JSON.stringify(d);
                   const cvb = JSON.parse(result);
                   var newDate = cvb.date;
-                  var time = cvb.time
+                //   var time = cvb.time
+                //   console.log(cvb.time);
             var t = newDate;
             
               isVerify = true;
@@ -216,17 +217,17 @@
               if(isVerify==true){
               const words = t.split('/');
               var date=(words[2]+"-"+words[0]+"-"+words[1]).trim();
-            //   var time = "10:00";
+              var time = "10:00";
               var td = time+ "@" + date;
               while(count == 0 ){
                 console.log("Count:",count);
-              const fetchRes = fetch("https://database-production-cb9e.up.railway.app/api/appoitment/meeting/link/" + td);
+              const fetchRes = fetch("http://localhost:5500/api/appoitment/meeting/link/" + td);
                 fetchRes
                   .then((res) => res.json())
                   .then((d) => {
                   const result = JSON.stringify(d);
                   const res=JSON.parse(result)
-                  fetch("https://database-production-cb9e.up.railway.app/api/appoitment/update/"+ss,{
+                  fetch("http://localhost:5500/api/appoitment/update/"+ss,{
                         method:"PUT",
                         headers:{
                             "Content-Type": "application/json",
@@ -247,7 +248,7 @@
                         var link = res.result;
                         const url = new URL(`${link}`);
                         var urlString = url.toString();
-                        const fetchRes = fetch("https://database-production-cb9e.up.railway.app/send-sms",{
+                        const fetchRes = fetch("http://localhost:5500/send-sms",{
                             method:"POST",
                             headers:{
                                 "Content-Type": "application/json",
@@ -274,7 +275,7 @@
 			    });
             } 
             function verify(ss){
-                const fetchRes = fetch("https://database-production-cb9e.up.railway.app/api/appoitment/app/" + ss);
+                const fetchRes = fetch("http://localhost:5500/api/appoitment/app/" + ss);
                 fetchRes.then((res)=>res.json())
                 .then((ans)=>{
                     const newAns = JSON.stringify(ans);
@@ -285,7 +286,7 @@
             }
             function appoitment(ss){
                 $.ajax({
-                url:"https://database-production-cb9e.up.railway.app/api/appoitment/delete/" + ss,
+                url:"http://localhost:5500/api/appoitment/delete/" + ss,
                 method:'DELETE',
                 success:function(){
                   alert("Record has been deleted")
