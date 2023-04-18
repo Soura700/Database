@@ -144,33 +144,37 @@
                  <div class="appoinment-wrap mt-5 mt-lg-0 pl-lg-5">
                   <h2 class="mb-2 title-color">Book an appoinment</h2>
                   <p class="mb-4">Mollitia dicta commodi est recusandae iste, natus eum asperiores corrupti qui velit . Iste dolorum atque similique praesentium soluta.</p>
+                  <div id="error">
+                    <ul class="error">
+                    </ul>
+                  </div>
                      <form id="form" class="appoinment-form" method="post" action="/api/appoitment/appoitment">
                           <div class="row">
                                <div class="col-lg-6">
                                   <div class="form-group">
-                                      <select class="form-control" name="department" id="exampleFormControlSelect1">
-                                        <option>Choose Category</option>
-                                        <option>DIABETOLOGY</option>
-										 <option>DERMATOLOGY</option>
-										 <option>CARDIOLOGY</option>
-										 <option> NEUROLOGY</option>
-										 <option>NEPHROLOGY</option>
-										 <option> ONCOLOGY</option>
-										 <option>GYNECOLOGY</option>
+                                      <select class="form-control" name="department" id="department">
+                                        <option>Choose Department</option>
+                                        <option>Software Design</option>
+                                        <option>Development cycle</option>
+                                        <option>Software Development</option>
+                                        <option>Maintenance</option>
+                                        <option>Process Query</option>
+                                        <option>Cost and Duration</option>
+                                        <option>Modal Delivery</option>
                                       </select>
                                   </div>
                               </div>
                               <div class="col-lg-6">
                                   <div class="form-group">
-                                      <select class="form-control" name="doctors" id="exampleFormControlSelect2">
+                                      <select class="form-control" name="doctors" id="doctor">
                                         <option>Select Doctors</option>
-                                       <option>Dr. Amit Vatkar</option>
-										 <option>Dr. Santosh Kondekar</option>
-										 <option>Dr. Prajct Sao</option>
-										 <option>Dr. Gaurav Gupta</option>
-										 <option>Dr. V. S. Rathore</option>
-										 <option>Dr. Chandrashekhar Kulkarni</option>
-										 <option>Dr. Manish Gupta</option>
+                                        <option>Software Design</option>
+                                        <option>Development cycle</option>
+                                        <option>Software Development</option>
+                                        <option>Maintenance</option>
+                                        <option>Process Query</option>
+                                        <option>Cost and Duration</option>
+                                        <option>Modal Delivery</option>
                                       </select>
                                   </div>
                               </div>
@@ -187,7 +191,7 @@
                               </div>
                                <div class="col-lg-6">
                                   <div class="form-group">
-                                      <input name="username" id="name" type="text" class="form-control" placeholder="Full Name">
+                                      <input name="username" id="username" type="text" class="form-control" placeholder="Full Name">
                                   </div>
                               </div>
       
@@ -200,7 +204,7 @@
                           <div class="form-group-2 mb-4">
                               <textarea name="message" id="message" class="form-control" rows="6" placeholder="Your Message"></textarea>
                           </div>
-                          <button class="btn btn-main btn-round-full" id="button" type="submit" onclick="submit()" href="#">Make Appoinment<i class="icofont-simple-right ml-2"></i></button>
+                          <button class="btn btn-main btn-round-full" id="button" type="submit" >Make Appoinment<i class="icofont-simple-right ml-2"></i></button>
                       </form>
                   </div>
               </div>
@@ -304,6 +308,43 @@
             </div>
           </div>
         </div>
-      </footer>      
+      </footer>    
+      
+      
+      <script>
+        const form = document.getElementById('form');
+        const usernameInput = document.getElementById('username');
+        const doctorsInput = document.getElementById('doctor');
+        const departmentInput = document.getElementById('department');
+        const timeInput = document.getElementById('time');
+        const dateInput = document.getElementById('date');
+        const phoneInput = document.getElementById('phone');
+        const errorsDiv = document.getElementById('error');
+        form.addEventListener('submit', async event => {
+          event.preventDefault();
+          const response = await fetch('https://database-production-cb9e.up.railway.app/api/appoitment/appoitment', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json'
+          },
+          body: JSON.stringify({
+            doctors:doctorsInput.value,
+            department:departmentInput.value,
+            username:usernameInput.value,
+            date:dateInput.value,
+            phone:phoneInput.value,
+            time:timeInput.value,
+          })
+          });
+          if (response.ok) {
+          alert('Appointment created successfully!');
+        window.location.href = 'https://database-production-cb9e.up.railway.app/success.html'
+          }
+        else {
+          const errors = await response.text();
+          errorsDiv.innerHTML = errors;
+        }
+        });
+        </script>
 </body>
 </html>
