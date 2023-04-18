@@ -1,17 +1,44 @@
 const router = require("express").Router();
 const { Appointment } = require("../models/appointment.model");
+const {check,validationResult} = require("express-validator");
 
 // Create Appoitment
-router.post("/appoitment", async (req, res) => {
+router.post("/appoitment", [
+  check('username','Username is not valid')
+  .notEmpty()
+  .withMessage('Username cannot be empty'),
+  check('department','Department is not valid')
+  .notEmpty()
+  .withMessage('Department cannot be empty'),
+  check('doctors','Doctors is not valid')
+  .notEmpty()
+  .withMessage('Doctors cannot be empty'),
+  check('date','Date is not valid')
+  .notEmpty()
+  .withMessage('Date cannot be empty'),
+  check('phone','Phone is not valid')
+  .notEmpty()
+  .withMessage('Phone cannot be empty'),
+  check('time','Time is not valid')
+  .notEmpty()
+  .withMessage('Time cannot be empty'),
+],
+async (req, res) => {
+  const errors = validationResult(req)
+  const errorMessages = errors.array().map(error =>`<div class="alert alert-warning" role="alert">${error.msg}</div>`).join('');
+  if(!errors.isEmpty()){
+    return res.status(400).send(errorMessages);
+  }
+  else{
     const newAppoitment = new Appointment(req.body);
     try {
       const saveAppoitment =await newAppoitment.save();
-      // res.status(200).json(saveAppoitment);
-      res.status(200).redirect("/");
+      res.status(200).redirect("/success");
     } catch (error) {
       res.status(500).send(error);
     }
-  });
+  }
+  });  
   
   // All appotments
   router.get("/all", async (req, res) => {
