@@ -338,6 +338,10 @@
 				<div class="appoinment-wrap mt-5 mt-lg-0">
 					<h2 class="mb-2 title-color">Book appoinment</h2>
 					<p class="mb-4">Mollitia dicta commodi est recusandae iste, natus eum asperiores corrupti qui velit . Iste dolorum atque similique praesentium soluta.</p>
+								  <div id="error">
+									  <ul class="error">
+									  </ul>
+								   </div>
 					     <form id="form" class="appoinment-form" method="post" action="/api/appoitment/appoitment">
 							<div class="row">
 								<div class="col-lg-6">
@@ -734,9 +738,6 @@
 			alert('User loggedin successfully!');
 		window.location.href = 'http://localhost:5500/success.html'
 		  }
-		else if(response.status == 429){
-		window.location.href = 'http://localhost:5500/429.html'
-		}
 		else {
 		  const errors = await response.text();
 		  errorsDiv.innerHTML = errors;
