@@ -209,6 +209,9 @@ app.get("/resetPassword",cors(adminCorsOptions),(req,res)=>{
 app.get("/contact",cors(adminCorsOptions),(req,res)=>{
   res.sendFile(__dirname + '/public/contact.html');
 })
+app.get("/success",cors(adminCorsOptions),(req,res)=>{
+  res.sendFile(__dirname + '/public/success.html');
+})
 
 
 // Setting the Port...
