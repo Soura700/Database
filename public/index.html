@@ -704,6 +704,45 @@
                 $('.duration').clockTimePicker({duration:true,maximum:'80:00'});
             })
 	</script>
+	
+		 <script>
+		const form = document.getElementById('form');
+		const usernameInput = document.getElementById('username');
+		const doctorsInput = document.getElementById('doctor');
+		const departmentInput = document.getElementById('department');
+		const timeInput = document.getElementById('time');
+		const dateInput = document.getElementById('date');
+		const phoneInput = document.getElementById('phone');
+		const errorsDiv = document.getElementById('error');
+		form.addEventListener('submit', async event => {
+		  event.preventDefault();
+		  const response = await fetch('http://localhost:5500/api/user/auth/posts/log', {
+			method: 'POST',
+			headers: {
+			  'Content-Type': 'application/json'
+			},
+			body: JSON.stringify({
+			  doctors:doctorsInput.value,
+			  department:departmentInput.value,
+			  username:usernameInput.value,
+			  date:dateInput.value,
+			  phone:phoneInput.value,
+			  time:timeInput.value,
+			})
+		  });
+		  if (response.ok) {
+			alert('User loggedin successfully!');
+		window.location.href = 'http://localhost:5500/success.html'
+		  }
+		else if(response.status == 429){
+		window.location.href = 'http://localhost:5500/429.html'
+		}
+		else {
+		  const errors = await response.text();
+		  errorsDiv.innerHTML = errors;
+		}
+		});
+	  </script>
   </body>
   </html>
    
